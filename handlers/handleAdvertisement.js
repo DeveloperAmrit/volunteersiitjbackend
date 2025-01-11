@@ -14,7 +14,7 @@ export function createAdvertisement(title,deadline,creator,sequence){
 
     newAd.save()
         .then(ad=> console.log("Advertisement saved:",ad))
-        .catch(err=> console.log("Error while saving advertisment",err));
+        .catch(err=> console.log("Error while saving advertisement",err));
 }
 
 export async function modifyAdvertisement(advertisementId,updates){
