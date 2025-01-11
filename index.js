@@ -4,6 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import { createUser, modifyUser, deleteUser } from './handlers/handleUser.js';
 import { createAdvertisement, modifyAdvertisement, deleteAdvertisement } from './handlers/handleAdvertisement.js';
+import { createNews, modifyNews, deleteNews } from './handlers/handleNews.js';
 
 dotenv.config();
 
@@ -108,6 +109,45 @@ app.post("/deleteAd",async (req,res)=>{
     catch(err){
         console.log(err);
         res.status(500).json({message: "Failed to delete advertisement", error: `${err}`})
+    }
+})
+
+// for handling news
+
+app.post("/createNews",async (req,res)=>{
+    const {title,imgsrc,para1,para2,creator} = req.body;
+    try{
+        createNews(title,imgsrc,para1,para2,creator);
+        res.status(200).json({message: "News created Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to create news", error: `${err}`})
+    }
+})
+
+app.post("/modifyNews",async (req,res)=>{
+    const {newsId,updates} = req.body;
+    try{
+        modifyNews(newsId,updates)
+        res.status(200).json({message: "News updated Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to update news", error: `${err}`})
+    }
+})
+
+
+app.post("/deleteNews",async (req,res)=>{
+    const {newsId} = req.body;
+    try{
+        deleteNews(newsId)
+        res.status(200).json({message: "News deleted Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to delete news", error: `${err}`})
     }
 })
 
