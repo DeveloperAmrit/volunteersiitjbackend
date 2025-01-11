@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
 import { createUser, modifyUser, deleteUser } from './handlers/handleUser.js';
+import { createAdvertisement, modifyAdvertisement, deleteAdvertisement } from './handlers/handleAdvertisement.js';
 
 dotenv.config();
 
@@ -32,6 +33,8 @@ catch(err){
 }
 
 // END POINTS
+
+// for handling User
 
 app.post("/createUser",async (req,res)=>{
     const {name,email,college,isAdvertiser} = req.body;
@@ -68,6 +71,48 @@ app.post("/deleteUser",async (req,res)=>{
         res.status(500).json({message: "Failed to delete user", error: `${err}`})
     }
 })
+
+// for handling Advertisement
+
+app.post("/createAd",async (req,res)=>{
+    const {title,deadline,creator,sequence} = req.body;
+    try{
+        createAdvertisement(title,deadline,creator,sequence);
+        res.status(200).json({message: "Advertisement created Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to create advertisement", error: `${err}`})
+    }
+})
+
+app.post("/modifyAd",async (req,res)=>{
+    const {adId,updates} = req.body;
+    try{
+        modifyAdvertisement(adId,updates)
+        res.status(200).json({message: "Advertisement updated Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to update advertisement", error: `${err}`})
+    }
+})
+
+
+app.post("/deleteAd",async (req,res)=>{
+    const {adId} = req.body;
+    try{
+        deleteAdvertisement(adId)
+        res.status(200).json({message: "Advertisement deleted Successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to delete advertisement", error: `${err}`})
+    }
+})
+
+
+// starting the server
 
 const PORT = process.env.PORT || 5000;
 
