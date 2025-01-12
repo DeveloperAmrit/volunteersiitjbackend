@@ -38,9 +38,9 @@ catch(err){
 // for handling User
 
 app.post("/createUser",async (req,res)=>{
-    const {name,email,college,isAdvertiser} = req.body;
+    const {userId,name,email,college,isAdvertiser} = req.body;
     try{
-        createUser(name,email,college,isAdvertiser);
+        createUser(userId,name,email,college,isAdvertiser);
         res.status(200).json({message: "User created Successfully"})
     }
     catch(err){
