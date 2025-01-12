@@ -1,12 +1,10 @@
 import User from '../models/user.js';
-import { nanoid } from 'nanoid';
 
-export function createUser(name,email,college,isAdvertiser){
-    const userid = nanoid();
+export function createUser(userId,name,email,college,isAdvertiser){
 
     const newUser = new User({
         name: name,
-        userId: userid,
+        userId: userId,
         email: email,
         college: college,
         isAdvertiser: isAdvertiser
