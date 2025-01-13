@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     },
     photoURL: {
         type: String,
-        required: true,
+        required: true
     },
     college: {
         type: String,

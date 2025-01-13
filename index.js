@@ -88,9 +88,10 @@ app.post("/getUser",async (req,res)=>{
 // for handling Advertisement
 
 app.post("/createAd",async (req,res)=>{
-    const {title,deadline,creator,sequence,creatorId} = req.body;
+    const {ad} = req.body;
+    console.log(ad)
     try{
-        createAdvertisement(title,deadline,creator,sequence,creatorId);
+        createAdvertisement(ad);
         res.status(200).json({message: "Advertisement created Successfully"})
     }
     catch(err){

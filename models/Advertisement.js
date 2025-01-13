@@ -28,6 +28,17 @@ const advertisementSchema = new mongoose.Schema({
     },
     sequence: { 
         type: [mongoose.Schema.Types.Mixed],
+        required: true,
+        default: [] 
+    },
+    formStartDate: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    formSequence: { 
+        type: [mongoose.Schema.Types.Mixed],
+        required: true,
         default: [] 
     }
 }, {
