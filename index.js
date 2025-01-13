@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
-import { createUser, modifyUser, deleteUser } from './handlers/handleUser.js';
+import { createUser, modifyUser, deleteUser, fetchUser } from './handlers/handleUser.js';
 import { createAdvertisement, modifyAdvertisement, deleteAdvertisement } from './handlers/handleAdvertisement.js';
 import { createNews, modifyNews, deleteNews } from './handlers/handleNews.js';
 
@@ -38,9 +38,9 @@ catch(err){
 // for handling User
 
 app.post("/createUser",async (req,res)=>{
-    const {userId,name,email,college,isAdvertiser} = req.body;
+    const {userId,name,email,photoURL,college,isAdvertiser} = req.body;
     try{
-        createUser(userId,name,email,college,isAdvertiser);
+        createUser(userId,name,email,photoURL,college,isAdvertiser);
         res.status(200).json({message: "User created Successfully"})
     }
     catch(err){
@@ -73,12 +73,25 @@ app.post("/deleteUser",async (req,res)=>{
     }
 })
 
+app.post("/getUser",async (req,res)=>{
+    const {userId} = req.body;
+    try{
+        const user = await fetchUser(userId);
+        res.status(200).json({user: user , message: "User fetched successfullly"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Error while fetchinh user"})
+    }
+})
+
 // for handling Advertisement
 
 app.post("/createAd",async (req,res)=>{
-    const {title,deadline,creator,sequence} = req.body;
+    const {ad} = req.body;
+    console.log(ad)
     try{
-        createAdvertisement(title,deadline,creator,sequence);
+        createAdvertisement(ad);
         res.status(200).json({message: "Advertisement created Successfully"})
     }
     catch(err){
@@ -115,9 +128,9 @@ app.post("/deleteAd",async (req,res)=>{
 // for handling news
 
 app.post("/createNews",async (req,res)=>{
-    const {title,imgsrc,para1,para2,creator} = req.body;
+    const {title,imgsrc,para1,para2,creator,creatorId} = req.body;
     try{
-        createNews(title,imgsrc,para1,para2,creator);
+        createNews(title,imgsrc,para1,para2,creator,creatorId);
         res.status(200).json({message: "News created Successfully"})
     }
     catch(err){

@@ -1,16 +1,10 @@
 import Advertisement from '../models/Advertisement.js';
-import { nanoid } from 'nanoid';
 
-export function createAdvertisement(title,deadline,creator,sequence){
-    const adId = nanoid();
 
-    const newAd = new Advertisement({
-        title: title,
-        advertisementId: adId,
-        deadline: deadline,
-        creator: creator,
-        sequence: sequence
-    });
+export function createAdvertisement(ad){
+
+
+    const newAd = new Advertisement(ad);
 
     newAd.save()
         .then(ad=> console.log("Advertisement saved:",ad))

@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: [/.+@.+\..+/, 'Please enter a valid email address'] // Validates email format
     },
+    photoURL: {
+        type: String,
+        required: true
+    },
     college: {
         type: String,
         required: true, 

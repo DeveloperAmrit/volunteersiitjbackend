@@ -28,7 +28,12 @@ const newsSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true
-    }
+    },
+    creatorId: {
+        type: String,
+        required: true,
+        trim: true
+    },
 }, {
     timestamps: true // Automatically adds createdAt and updatedAt fields
 });

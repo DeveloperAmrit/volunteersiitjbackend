@@ -1,11 +1,12 @@
 import User from '../models/user.js';
 
-export function createUser(userId,name,email,college,isAdvertiser){
+export function createUser(userId,name,email,photoURL,college,isAdvertiser){
 
     const newUser = new User({
         name: name,
         userId: userId,
         email: email,
+        photoURL: photoURL,
         college: college,
         isAdvertiser: isAdvertiser
     });
@@ -48,4 +49,21 @@ export async function deleteUser(userId){
         console.log("Error occured while deleting user",err);
     }
     
+}
+
+export async function fetchUser(userId) {
+    try{
+        const result = await User.findOne({"userId": userId})
+        if(result){
+            console.log("User fetched",result)
+            return result;
+        }
+        else{
+            console.log("No such user found");
+            return false;
+        }
+    }
+    catch(err){
+        console.log("Error occured while fetching user",err);
+    }
 }
