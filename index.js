@@ -76,8 +76,8 @@ app.post("/deleteUser",async (req,res)=>{
 app.post("/getUser",async (req,res)=>{
     const {userId} = req.body;
     try{
-        const user = fetchUser(userId);
-        req.status(200).json({user: user , message: "User fetched successfullly"})
+        const user = await fetchUser(userId);
+        res.status(200).json({user: user , message: "User fetched successfullly"})
     }
     catch(err){
         console.log(err);

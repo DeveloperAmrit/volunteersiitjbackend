@@ -55,8 +55,8 @@ export async function fetchUser(userId) {
     try{
         const result = await User.findOne({"userId": userId})
         if(result){
-            console.log("User fetched",userId)
-            return true;
+            console.log("User fetched",result)
+            return result;
         }
         else{
             console.log("No such user found");
