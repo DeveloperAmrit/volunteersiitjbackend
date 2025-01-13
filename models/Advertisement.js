@@ -21,6 +21,11 @@ const advertisementSchema = new mongoose.Schema({
         required: true, 
         trim: true
     },
+    creatorId: {
+        type: String,
+        required: true,
+        trim: true
+    },
     sequence: { 
         type: [mongoose.Schema.Types.Mixed],
         default: [] 

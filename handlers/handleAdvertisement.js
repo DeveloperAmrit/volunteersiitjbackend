@@ -1,7 +1,7 @@
 import Advertisement from '../models/Advertisement.js';
 import { nanoid } from 'nanoid';
 
-export function createAdvertisement(title,deadline,creator,sequence){
+export function createAdvertisement(title,deadline,creator,sequence,creatorId){
     const adId = nanoid();
 
     const newAd = new Advertisement({
@@ -9,6 +9,7 @@ export function createAdvertisement(title,deadline,creator,sequence){
         advertisementId: adId,
         deadline: deadline,
         creator: creator,
+        creatorId: creatorId,
         sequence: sequence
     });
 

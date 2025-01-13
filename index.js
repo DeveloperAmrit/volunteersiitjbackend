@@ -76,9 +76,9 @@ app.post("/deleteUser",async (req,res)=>{
 // for handling Advertisement
 
 app.post("/createAd",async (req,res)=>{
-    const {title,deadline,creator,sequence} = req.body;
+    const {title,deadline,creator,sequence,creatorId} = req.body;
     try{
-        createAdvertisement(title,deadline,creator,sequence);
+        createAdvertisement(title,deadline,creator,sequence,creatorId);
         res.status(200).json({message: "Advertisement created Successfully"})
     }
     catch(err){
@@ -115,9 +115,9 @@ app.post("/deleteAd",async (req,res)=>{
 // for handling news
 
 app.post("/createNews",async (req,res)=>{
-    const {title,imgsrc,para1,para2,creator} = req.body;
+    const {title,imgsrc,para1,para2,creator,creatorId} = req.body;
     try{
-        createNews(title,imgsrc,para1,para2,creator);
+        createNews(title,imgsrc,para1,para2,creator,creatorId);
         res.status(200).json({message: "News created Successfully"})
     }
     catch(err){

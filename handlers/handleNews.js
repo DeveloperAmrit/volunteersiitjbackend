@@ -1,7 +1,7 @@
 import News from '../models/News.js';
 import { nanoid } from 'nanoid';
 
-export function createNews(title,imgsrc,para1,para2,creator){
+export function createNews(title,imgsrc,para1,para2,creator,creatorId){
     const newsId = nanoid();
 
     const newNews = new News({
@@ -10,7 +10,8 @@ export function createNews(title,imgsrc,para1,para2,creator){
         imgsrc: imgsrc,
         para1: para1,
         para2: para2,
-        creator: creator
+        creator: creator,
+        creatorId: creatorId
     });
 
     newNews.save()
