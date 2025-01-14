@@ -33,6 +33,10 @@ catch (err) {
     console.log(err);
 }
 
+app.get('/', (req, res) => {
+    res.send('Server is running successfully!');
+});
+
 // END POINTS
 
 // for handling User
@@ -124,21 +128,6 @@ app.post("/deleteAd", async (req, res) => {
         res.status(500).json({ message: "Failed to delete advertisement", error: `${err}` })
     }
 })
-
-app.get('/checkEmail/:email', async (req, res) => {
-    const email = req.params.email;
-    try {
-        const user = await check(email);
-        if (user) {
-            res.status(200).send({ message: 'Email exists' });
-        } else {
-            return;
-        }
-    } catch (error) {
-        console.error(error);
-    }
-});
-
 // for handling news
 
 app.post("/createNews", async (req, res) => {
