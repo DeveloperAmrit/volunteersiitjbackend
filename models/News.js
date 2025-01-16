@@ -11,7 +11,7 @@ const newsSchema = new mongoose.Schema({
         required: true,
         unique: true // Ensures no duplicate clientId
     },
-    imgsrc: {
+    imageURL: {
         type: String,
         required: true,
     },
