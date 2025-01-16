@@ -45,3 +45,22 @@ export async function deleteAdvertisement(advertisementId){
     }
     
 }
+
+export async function getAllAdsvetisements(){
+    try{
+        const result = await Advertisement.find({})
+        if(result){
+            console.log("Advertisements fetched",result)
+            return Array.from(result);
+        }
+        else{
+            console.log("No advertisements found");
+            return false;
+        }
+    }
+    catch(err){
+        console.log("Error occured while fetching advertisements",err);
+    }
+    
+}
+

@@ -1,13 +1,11 @@
 import News from '../models/News.js';
-import { nanoid } from 'nanoid';
 
-export function createNews(title,imgsrc,para1,para2,creator,creatorId){
-    const newsId = nanoid();
+export function createNews(title,newsId,imageURL,para1,para2,creator,creatorId){
 
     const newNews = new News({
         title: title,
         newsId: newsId,
-        imgsrc: imgsrc,
+        imageURL: imageURL,
         para1: para1,
         para2: para2,
         creator: creator,
@@ -52,4 +50,21 @@ export async function deleteNews(newsId){
         console.log("Error occured while deleting news",err);
     }
     
+}
+
+export async function getAllNews() {
+    try{
+        const result = await News.find({})
+        if(result){
+            console.log("All news fetched")
+            return Array.from(result);
+        }
+        else{
+            console.log("No news found");
+            return false;
+        }
+    }
+    catch(err){
+        console.log("Error occured while fetching news",err);
+    }
 }
