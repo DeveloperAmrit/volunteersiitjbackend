@@ -2,9 +2,11 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 import express from 'express';
 import cors from 'cors';
-import { createUser, modifyUser, deleteUser, fetchUser, check } from './handlers/handleUser.js';
-import { createAdvertisement, modifyAdvertisement, deleteAdvertisement } from './handlers/handleAdvertisement.js';
-import { createNews, modifyNews, deleteNews } from './handlers/handleNews.js';
+import multer from 'multer';
+import { createUser, modifyUser, deleteUser, fetchUser } from './handlers/handleUser.js';
+import { createAdvertisement, modifyAdvertisement, deleteAdvertisement, getAllAdsvetisements } from './handlers/handleAdvertisement.js';
+import { createNews, modifyNews, deleteNews, getAllNews } from './handlers/handleNews.js';
+import { uploadToCloudinary } from './handlers/handleImageUpload.js';
 
 dotenv.config();
 
@@ -128,45 +130,84 @@ app.post("/deleteAd", async (req, res) => {
         res.status(500).json({ message: "Failed to delete advertisement", error: `${err}` })
     }
 })
+
+
+app.get("/getAllAds",async (req,res)=>{
+    try{
+        const allAds = await getAllAdsvetisements();
+        res.status(200).json({allAds: allAds, message: "All advertisements fetched successfully"})
+
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to fetch advertisements", error: `${err}`})
+    }
+})
+
 // for handling news
 
-app.post("/createNews", async (req, res) => {
-    const { title, imgsrc, para1, para2, creator, creatorId } = req.body;
-    try {
-        createNews(title, imgsrc, para1, para2, creator, creatorId);
-        res.status(200).json({ message: "News created Successfully" })
+app.post("/createNews",async (req,res)=>{
+    const {title,newsId,imageURL,para1,para2,creator,creatorId} = req.body;
+    try{
+        createNews(title,newsId,imageURL,para1,para2,creator,creatorId);
+        res.status(200).json({message: "News created Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to create news", error: `${err}` })
+        res.status(500).json({message: "Failed to create news", error: `${err}`})
     }
 })
 
-app.post("/modifyNews", async (req, res) => {
-    const { newsId, updates } = req.body;
-    try {
-        modifyNews(newsId, updates)
-        res.status(200).json({ message: "News updated Successfully" })
+app.post("/modifyNews",async (req,res)=>{
+    const {newsId,updates} = req.body;
+    try{
+        modifyNews(newsId,updates)
+        res.status(200).json({message: "News updated Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to update news", error: `${err}` })
+        res.status(500).json({message: "Failed to update news", error: `${err}`})
     }
 })
 
 
-app.post("/deleteNews", async (req, res) => {
-    const { newsId } = req.body;
-    try {
+app.post("/deleteNews",async (req,res)=>{
+    const {newsId} = req.body;
+    try{
         deleteNews(newsId)
-        res.status(200).json({ message: "News deleted Successfully" })
+        res.status(200).json({message: "News deleted Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to delete news", error: `${err}` })
+        res.status(500).json({message: "Failed to delete news", error: `${err}`})
     }
 })
 
+app.get("/getAllNews", async (req,res)=>{
+    try{
+        const allNews = await getAllNews()
+        res.status(200).json({allNews: allNews, message: "News fetched successfully"})
+    }  
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Failed to fetching news", error: `${err}`})
+    }
+})
+
+
+// for handling image uploads
+const upload = multer({ dest: 'uploads/' });
+
+app.post('/upload',upload.single('image'),async (req,res)=>{
+    try{
+        const imageURL = await uploadToCloudinary(req.file.originalname,req.file)
+        res.status(200).json({url: imageURL,message: "Image uploaded successfully"})
+    }
+    catch(err){
+        console.log(err);
+        res.status(500).json({message: "Error while uploading image",err});
+    }
+})
 
 // starting the server
 
