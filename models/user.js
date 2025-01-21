@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true, 
+        required: true,
         trim: true // Removes extra spaces
     },
     userId: {
@@ -23,19 +23,19 @@ const userSchema = new mongoose.Schema({
     },
     college: {
         type: String,
-        required: true, 
+        required: true,
         trim: true
     },
     isAdvertiser: {
         type: Boolean,
-        default: false 
+        default: false
     },
     isDeveloper: {
         type: Boolean,
         default: false
     },
     appliedForms: {
-        type:[{
+        type: [{
             id: {
                 type: String,
                 required: true
@@ -47,10 +47,11 @@ const userSchema = new mongoose.Schema({
                 default: 'pending'
             }
         }],
-        default: []
+        default: [],
+        _id: false
     },
     madeAds: {
-        type:[{
+        type: [{
             id: {
                 type: String,
                 required: true
@@ -59,7 +60,7 @@ const userSchema = new mongoose.Schema({
         default: []
     },
     madeNews: {
-        type:[{
+        type: [{
             id: {
                 type: String,
                 required: true
