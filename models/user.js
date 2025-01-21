@@ -45,6 +45,10 @@ const userSchema = new mongoose.Schema({
                 required: true,
                 enum: ['pending', 'approved', 'rejected'], // Validates allowed values
                 default: 'pending'
+            },
+            res: {
+                type: [],
+                required: true,
             }
         }],
         default: [],
