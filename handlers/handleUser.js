@@ -17,8 +17,9 @@ export function createUser(userId,name,email,photoURL,college,isAdvertiser){
 }
 
 export async function modifyUser(userId,updates){
+
     try{
-        const updatedUser = await User.findOneAndUpdate({ userId: userId },updates,{new:true})
+        const updatedUser = await User.findOneAndUpdate({ userId: userId }, { $push: updates },{new:true})
         if(updatedUser){
             console.log("User updated ",updatedUser);
             return true;
