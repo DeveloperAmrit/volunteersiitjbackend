@@ -27,107 +27,103 @@ const PASSWORD = process.env.PASSWORD
 const URI = `mongodb+srv://${USERNAME}:${PASSWORD}@hdcluster0.x8tr1.mongodb.net/?`
 
 // connecting to mongoDB
-try {
+try{
     mongoose.connect(URI);
     console.log("Connected to MongoDB")
 }
-catch (err) {
+catch(err){
     console.log(err);
 }
-
-app.get('/', (req, res) => {
-    res.send('Server is running successfully!');
-});
 
 // END POINTS
 
 // for handling User
 
-app.post("/createUser", async (req, res) => {
-    const { userId, name, email, photoURL, college, isAdvertiser } = req.body;
-    try {
-        createUser(userId, name, email, photoURL, college, isAdvertiser);
-        res.status(200).json({ message: "User created Successfully" })
+app.post("/createUser",async (req,res)=>{
+    const {userId,name,email,photoURL,college,isAdvertiser} = req.body;
+    try{
+        createUser(userId,name,email,photoURL,college,isAdvertiser);
+        res.status(200).json({message: "User created Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to create user", error: `${err}` })
+        res.status(500).json({message: "Failed to create user", error: `${err}`})
     }
 })
 
-app.post("/modifyUser", async (req, res) => {
-    const { userId, updates } = req.body;
-    try {
-        modifyUser(userId, updates)
-        res.status(200).json({ message: "User updated Successfully" })
+app.post("/modifyUser",async (req,res)=>{
+    const {userId,updates} = req.body;
+    try{
+        modifyUser(userId,updates)
+        res.status(200).json({message: "User updated Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to update user", error: `${err}` })
+        res.status(500).json({message: "Failed to update user", error: `${err}`})
     }
 })
 
-app.post("/deleteUser", async (req, res) => {
-    const { userId } = req.body;
-    try {
+app.post("/deleteUser",async (req,res)=>{
+    const {userId} = req.body;
+    try{
         deleteUser(userId)
-        res.status(200).json({ message: "User deleted Successfully" })
+        res.status(200).json({message: "User deleted Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to delete user", error: `${err}` })
+        res.status(500).json({message: "Failed to delete user", error: `${err}`})
     }
 })
 
-app.post("/getUser", async (req, res) => {
-    const { userId } = req.body;
-    try {
+app.post("/getUser",async (req,res)=>{
+    const {userId} = req.body;
+    try{
         const user = await fetchUser(userId);
-        res.status(200).json({ user: user, message: "User fetched successfullly" })
+        res.status(200).json({user: user , message: "User fetched successfullly"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Error while fetchinh user" })
+        res.status(500).json({message: "Error while fetchinh user"})
     }
 })
 
 // for handling Advertisement
 
-app.post("/createAd", async (req, res) => {
-    const { ad } = req.body;
+app.post("/createAd",async (req,res)=>{
+    const {ad} = req.body;
     console.log(ad)
-    try {
+    try{
         createAdvertisement(ad);
-        res.status(200).json({ message: "Advertisement created Successfully" })
+        res.status(200).json({message: "Advertisement created Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to create advertisement", error: `${err}` })
+        res.status(500).json({message: "Failed to create advertisement", error: `${err}`})
     }
 })
 
-app.post("/modifyAd", async (req, res) => {
-    const { adId, updates } = req.body;
-    try {
-        modifyAdvertisement(adId, updates)
-        res.status(200).json({ message: "Advertisement updated Successfully" })
+app.post("/modifyAd",async (req,res)=>{
+    const {adId,updates} = req.body;
+    try{
+        modifyAdvertisement(adId,updates)
+        res.status(200).json({message: "Advertisement updated Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to update advertisement", error: `${err}` })
+        res.status(500).json({message: "Failed to update advertisement", error: `${err}`})
     }
 })
 
 
-app.post("/deleteAd", async (req, res) => {
-    const { adId } = req.body;
-    try {
+app.post("/deleteAd",async (req,res)=>{
+    const {adId} = req.body;
+    try{
         deleteAdvertisement(adId)
-        res.status(200).json({ message: "Advertisement deleted Successfully" })
+        res.status(200).json({message: "Advertisement deleted Successfully"})
     }
-    catch (err) {
+    catch(err){
         console.log(err);
-        res.status(500).json({ message: "Failed to delete advertisement", error: `${err}` })
+        res.status(500).json({message: "Failed to delete advertisement", error: `${err}`})
     }
 })
 
